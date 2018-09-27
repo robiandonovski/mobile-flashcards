@@ -90,7 +90,6 @@ class Quiz extends Component {
 
   render() {
     const { deck } = this.props
-    console.log("deck", deck)
     const { questions } = deck
     const { currentQuestion, correctAnswers, showAnswer } = this.state
     const totalQuestions = questions.length

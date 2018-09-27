@@ -44,7 +44,7 @@ class DeckDetail extends Component {
           { deckKey, deckTitle: deck.title }
         )} />
 
-        <Btn label="Start quiz" onPress={() => this.props.navigation.navigate(
+        <Btn label="Start a Quiz" onPress={() => this.props.navigation.navigate(
           'Quiz',
           { deckKey, deckTitle: deck.title }
         )} />
