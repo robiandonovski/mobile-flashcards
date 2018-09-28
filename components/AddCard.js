@@ -7,11 +7,12 @@ import { black, white } from '../utils/colors'
 import { TextInput } from 'react-native-gesture-handler';
 import { NavigationActions } from 'react-navigation'
 
-function SubmitBtn ({ onPress }) {
+function SubmitBtn ({ onPress, disabled=false }) {
   return (
     <TouchableOpacity
       style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
         <Text style={styles.submitBtnText}>Add card</Text>
     </TouchableOpacity>
   )
@@ -51,6 +52,7 @@ class AddCard extends Component {
   }
 
   render() {
+    const { question, answer } = this.state
     const { deckTitle } = this.props
 
     return (
@@ -64,7 +66,7 @@ class AddCard extends Component {
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(question) => this.setState({question})}
-          value={this.state.question}
+          value={question}
         />
 
         <Text>Answer:</Text>
@@ -72,10 +74,10 @@ class AddCard extends Component {
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(answer) => this.setState({answer})}
-          value={this.state.answer}
+          value={answer}
         />
 
-        <SubmitBtn onPress={this.submit} />
+        <SubmitBtn onPress={this.submit} disabled={question === '' || answer === ''}/>
       </KeyboardAvoidingView>
     )
   }

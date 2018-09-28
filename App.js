@@ -12,6 +12,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { black, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
+import { setLocalNotification } from './utils/notifications';
 
 function FlashcardsStatusBar ({backgroundColor, ...props}) {
   return (
@@ -90,6 +91,10 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>

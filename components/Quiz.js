@@ -97,8 +97,6 @@ class Quiz extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Text>{currentQuestion+1}/{totalQuestions} - correct {correctAnswers}</Text>
-
         {currentQuestion === totalQuestions ?
           (
             <Fragment>
@@ -113,6 +111,8 @@ class Quiz extends Component {
             </Fragment>
           ): (
             <Fragment>
+              <Text>{currentQuestion+1}/{totalQuestions} - correct {correctAnswers}</Text>
+
               <Text style={styles.questionText}>
                 {card.question}
               </Text>

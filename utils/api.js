@@ -17,8 +17,6 @@ export function submitCard (question, deckKey) {
     .then(data => {
       const decks = JSON.parse(data)
       decks[deckKey].questions.push(question);
-      console.log("deckKey", deckKey)
-      console.log(decks)
       AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(decks))
     })
 }

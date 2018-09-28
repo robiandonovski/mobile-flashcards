@@ -1,9 +1,9 @@
 import { AsyncStorage } from 'react-native'
 
-export const FLASHCARDS_STORAGE_KEY = '123456789_987654321'
+export const FLASHCARDS_STORAGE_KEY = 'mobile-flashcards:decksStorage'
 
-function setDummyData () {
-  const dummyData = {
+function setStarterData () {
+  const starterData = {
     React: {
       title: 'React',
       questions: [
@@ -28,13 +28,13 @@ function setDummyData () {
     }
   }
 
-  AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(dummyData))
+  AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(starterData))
 
-  return dummyData
+  return starterData
 }
 
 export function formatResults (results) {
   return results === null
-    ? setDummyData()
+    ? setStarterData()
     : JSON.parse(results)
 }

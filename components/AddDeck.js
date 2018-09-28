@@ -7,11 +7,12 @@ import { black, white } from '../utils/colors'
 import { TextInput } from 'react-native-gesture-handler'
 import { NavigationActions } from 'react-navigation'
 
-function SubmitBtn ({ onPress }) {
+function SubmitBtn ({ onPress, disabled=false }) {
   return (
     <TouchableOpacity
       style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
         <Text style={styles.submitBtnText}>Create deck</Text>
     </TouchableOpacity>
   )
@@ -25,21 +26,23 @@ class AddDeck extends Component {
   submit = () => {
     const { deckTitle } = this.state
 
-    const deck = {
-      title: deckTitle,
-      questions: [],
+    if(deckTitle !== ''){
+      const deck = {
+        title: deckTitle,
+        questions: [],
+      }
+      const key = deckTitle.replace(' ', '_')
+
+      this.props.dispatch(addDeck({
+        [key]: deck
+      }))
+
+      this.setState(() => ({ deckTitle: '' }))
+
+      this.toHome()
+
+      submitDeck(deck, key)
     }
-    const key = deckTitle.replace(' ', '_')
-
-    this.props.dispatch(addDeck({
-      [key]: deck
-    }))
-
-    this.setState(() => ({ deckTitle: '' }))
-
-    this.toHome()
-
-    submitDeck(deck, key)
   }
 
   toHome = () => {
@@ -47,6 +50,8 @@ class AddDeck extends Component {
   }
 
   render() {
+    const { deckTitle } = this.state
+
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <Text style={styles.questionText}>
@@ -56,10 +61,10 @@ class AddDeck extends Component {
         <TextInput
           style={styles.textInput}
           onChangeText={(deckTitle) => this.setState({deckTitle})}
-          value={this.state.deckTitle}
+          value={deckTitle}
         />
 
-        <SubmitBtn onPress={this.submit} />
+        <SubmitBtn onPress={this.submit} disabled={deckTitle === ''} />
       </KeyboardAvoidingView>
     )
   }
